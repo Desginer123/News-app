@@ -17,36 +17,36 @@ const PostText = styled.Text`
 	line-height: 24px;
 `
 
-const FullPostScreen = ({route, navigation}) => {
+const FullPostScreen = ({ route, navigation }) => {
 
 	const [article, setArticle] = React.useState('');
 	const [loading, setLoading] = React.useState(true)
-	const {id, title} = route.params;
+	const { id, title } = route.params;
 
-	
+
 
 	React.useEffect(() => {
 		navigation.setOptions({
 			title
 		})
 		setLoading(true)
-		axios.get(`https://632009aae3bdd81d8ef10d61.mockapi.io/articles/${id}`).then(({data}) => {
+		axios.get(`https://632009aae3bdd81d8ef10d61.mockapi.io/articles/${id}`).then(({ data }) => {
 			setArticle(data)
 		}).catch(err => {
 			console.log(err);
-			Alert.alert('Ошибка','Ошибка при подключении cтатью')
+			Alert.alert('Ошибка', 'Ошибка при подключении cтатью')
 		}).finally(() => {
 			setLoading(false)
 		})
 	}, [])
-	if(loading) {
+	if (loading) {
 		return (
-			<Loading/>
+			<Loading />
 		)
-	  }
+	}
 	return (
 		<FullPostView>
-			<PostImage source={{uri: article.imageUrl}}/>
+			<PostImage source={{ uri: article.imageUrl }} />
 			<PostText>{article.text}</PostText>
 		</FullPostView>
 	)
